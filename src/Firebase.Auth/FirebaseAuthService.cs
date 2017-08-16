@@ -31,7 +31,7 @@ namespace Firebase.Auth
             return await Post<SignUpNewUserResponse>(Url("signupNewUser"), request);
         }
 
-        private async Task<TResponse> Post<TResponse>(string endpoint, object request)
+        private async Task<TResponse> Post<TResponse>(string endpoint, object request) where TResponse: class
         {
             try
             {
@@ -40,11 +40,13 @@ namespace Firebase.Auth
                 var responseData = await response.Content.ReadAsStringAsync();
                 response.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                AuthErrorReason errorReason = GetFailureReason(responseData);
-                throw new FirebaseAuthException(googleUrl, postContent, responseData, ex, errorReason);
+                //AuthErrorReason errorReason = GetFailureReason(responseData);
+                //throw new FirebaseAuthException(googleUrl, postContent, responseData, ex, errorReason);
             }
+
+            return null;
         }
     }
 }
