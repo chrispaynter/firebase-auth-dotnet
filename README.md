@@ -4,6 +4,8 @@ A dotnet standard2.0 SDK for Firebase Authentication that aims to follow the Goo
 **This is a work in progress** - I'm currently only implementing the end points I need in my current projects. If you'd like to submit a pull request, please do!
 
 ## Getting Started
+
+### Creating The API Service
 The `FirebaseAuthService` class will contains all the endpoints that the Firebase Rest API offers. This class requires a `FirebaseAuthOptions` object to be passed through in it's constructor, which contians keys required to connect and authentiate with Firebase API.
 
 ~~~~
@@ -15,6 +17,7 @@ var authOptions = new FirebaseAuthOptions()
 var authService = new FirebaseAuthService(authOptions);
 ~~~~
 
+### Using .NET Core
 If you are using **dotnet core**, you can configure this at the configuration level, so that `FirebaseAuthService` is injected into your classes automatically configured.
 
 In your **Startup.cs** file you might do something like this.
@@ -34,19 +37,29 @@ Then in your **appsettings.json** or your secrets configuration, add this.
 }
 ~~~~
 
+
 ## Endpoints
 The SDK is currently being implemented on an endpoint by endpoint basis, with the following Firebase Auth endpoints having been implemented thus far.
 
 The example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
 
+**NOTE:** All endpoints are implemented as asynchronous.
+
 ### [Sign up with email / password](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password)
+Creates a new email and password user by issuing a request to the Firebase **signupNewUser** endpoint.
 
 | Request Type    | Response Type           |
 | ------------- |:-------------:|
 | SignUpNewUserRequest      | SignUpNewUserResponse |
 
 ~~~~
-var request = new SignUpNew
+var request = new SignUpNewUserRequest()
+{
+    Email = "valid@test.com",
+    Password = "validpassword"
+};
+
+var response = await service.SignUpNewUser(request);
 ~~~~
 
 ## Unit Tests
