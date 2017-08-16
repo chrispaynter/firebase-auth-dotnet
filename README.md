@@ -43,12 +43,21 @@ Then in your **appsettings.json** or your secrets configuration, add this.
 ## Endpoints
 The SDK is currently being implemented on an endpoint by endpoint basis, with the following Firebase Auth endpoints having been implemented thus far.
 
-The example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
+All the following example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
+
+* [Sign up with email / password](#Sign up with email / password)
 
 **NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
 
-### [Sign up with email / password](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password)
-Creates a new email and password user by issuing a request to the Firebase **signupNewUser** endpoint.
+### Sign up with email / password
+Creates a new email and password user.
+
+|||
+|-----|:-----:|
+|Firebase Endpoitn Documentation | signupNewUser |
+|Firebase API Endpoint | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
+|Request C# Type | `SignUpNewUserRequest` |
+|Response C# Type| `SignUpNewUserResponse` |
 
 #### Request / Response Types
 | Type        | Documentation           |
