@@ -36,6 +36,11 @@ namespace Firebase.Auth
             return await Post<SignUpNewUserResponse>(Url("signupNewUser"), request);
         }
 
+        public async Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request)
+        {
+            return await Post<VerifyPasswordResponse>(Url("verifyPassword"), request);
+        }
+
         private async Task<TResponse> Post<TResponse>(string endpoint, object request) where TResponse : class
         {
             string responseJson = "";

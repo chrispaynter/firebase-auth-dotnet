@@ -19,6 +19,12 @@ namespace Firebase.Auth
         [EnumMember(Value = "INVALID_EMAIL")]
         InvalidEmail,
         [EnumMember(Value = "MISSING_EMAIL")]
-        MissingEmail
+        MissingEmail,
+        [EnumMember(Value = "EMAIL_NOT_FOUND")]
+        EmailNotFound,
+        [EnumMember(Value = "INVALID_PASSWORD")]
+        InvalidPassword,
+        [EnumMember(Value = "USER_DISABLED")]
+        UserDisabled
     }
 }

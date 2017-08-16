@@ -1,5 +1,5 @@
 # firebase-auth-dotnet
-A dotnet standard2.0 client for Firebase Authentication that follows the Google API exactly.
+A dotnet standard2.0 client for Firebase Authentication that aims to follow the Google Firebase Auth API exactly, as per the official documentation - https://firebase.google.com/docs/reference/rest/auth/.
 
 ## Running Unit Tests
 ### Firebase.Auth.IntegrationTests
@@ -12,6 +12,8 @@ There is a `.gitignore` file at the root of this project which prevents the `set
 {
   "firebaseWebApiKey": "<YOUR FIREBASE PROJECT'S WEB API KEY>",
   "validUserEmail": "<THE EMAIL OF A VALID USER>",
-  "validUserPassword":  "<THE PASSWORD OF A VALID USER>"
+  "validUserPassword":  "<THE PASSWORD OF THE SAME VALID USER>",
+  "validDisabledEmail": "<THE EMAIL OF A DISABLED USER>",
+  "validDisabledPassword": "<THE PASSWORD OF THE SAME DISABLED USER>"
 }
 ~~~~

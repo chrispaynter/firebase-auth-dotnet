@@ -1,6 +1,6 @@
 namespace Firebase.Auth.Payloads
 {
-    public class SignUpNewUserResponse : BaseResponse
+    public class VerifyPasswordResponse : BaseResponse
     {
         /// <summary>
         /// A Firebase Auth ID token for the newly created user.
@@ -26,5 +26,10 @@ namespace Firebase.Auth.Payloads
         /// The uid of the newly created user.
         /// </summary>
         public string LocalId { get; set; }
+
+        /// <summary>
+        /// Whether the email is for an existing account.
+        /// </summary>
+        public bool Registered { get; set; }
     }
 }
