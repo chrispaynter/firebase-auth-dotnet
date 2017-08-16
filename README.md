@@ -49,9 +49,10 @@ The example code follows on from the instantiation of the `FirebaseAuthService` 
 Creates a new email and password user by issuing a request to the Firebase **signupNewUser** endpoint.
 
 #### Request / Response Types
-
-| `SignUpNewUserRequest`| [Firebase Documentation](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
-| `SignUpNewUserResponse`| [Firebase Documentation](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
+| Type        | Documentation           |
+| ------------- |:-------------:|
+| `SignUpNewUserRequest`| [Refer to Firebase docs](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
+| `SignUpNewUserResponse`| [Refer to Firebase docs](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
 
 #### Example
 ~~~~
