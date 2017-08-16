@@ -47,7 +47,6 @@ All the following example code follows on from the instantiation of the `Firebas
 
 Finally, the documentation of each endpoint's requests and responses are light here, because it follows the Firebase API exactly. Thus, each section will link through to the appropriate Firebase endpoint docs.
 
-* [Sign up with email / password](#Sign up with email / password)
 
 **NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
 
