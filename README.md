@@ -45,6 +45,8 @@ The SDK is currently being implemented on an endpoint by endpoint basis, with th
 
 All the following example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
 
+Finally, the documentation of each endpoint's requests and responses are light here, because it follows the Firebase API exactly. Thus, each section will link through to the appropriate Firebase endpoint docs.
+
 * [Sign up with email / password](#Sign up with email / password)
 
 **NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
@@ -54,10 +56,10 @@ Creates a new email and password user.
 
 |||
 |-----|-----|
-|Firebase Endpoitn Documentation | signupNewUser |
-|Firebase API Endpoint | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
-|Request C# Type | `SignUpNewUserRequest` |
-|Response C# Type| `SignUpNewUserResponse` |
+| Firebase API Endpoint | `signupNewUser` |
+| Request C# Type | `SignUpNewUserRequest` |
+| Response C# Type| `SignUpNewUserResponse` |
+| Official Documentation | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
 #### Example
 ~~~~
