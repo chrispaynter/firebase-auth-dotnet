@@ -35,7 +35,9 @@ Then in your **appsettings.json** or your secrets configuration, add this.
 ~~~~
 
 ## Endpoints
-The SDK is currently being implemented on an endpoint by endpoint basis. The following Firebase Auth endpoints have been implemented thus far.
+The SDK is currently being implemented on an endpoint by endpoint basis, with the following Firebase Auth endpoints having been implemented thus far.
+
+The example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
 
 ### [Sign up with email / password](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password)
 
