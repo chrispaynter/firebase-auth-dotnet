@@ -1,7 +1,9 @@
 # firebase-auth-dotnet
-A dotnet standard2.0 SDK for Firebase Authentication that aims to follow the Google Firebase Auth API exactly, as per the official documentation - https://firebase.google.com/docs/reference/rest/auth/.
+A .NET API client for Firebase Authentication REST API that aims to follow the Google Firebase Auth API and documentation exactly.
 
-**This is a work in progress** - I'm currently only implementing the end points I need in my current projects. If you'd like to submit a pull request, please do!
+The official documentation can be found [here](https://firebase.google.com/docs/reference/rest/auth/), and I link to the appropriate sections of Firebase's docs as we discuss the endpoints below.
+
+**NOTE: This is a work in progress** - I'm currently only implementing the end points I need in my current projects. If you'd like to submit a pull request, please do!
 
 ## Getting Started
 
@@ -43,7 +45,7 @@ The SDK is currently being implemented on an endpoint by endpoint basis, with th
 
 The example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
 
-**NOTE:** All endpoints are implemented as asynchronous.
+**NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
 
 ### [Sign up with email / password](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password)
 Creates a new email and password user by issuing a request to the Firebase **signupNewUser** endpoint.
