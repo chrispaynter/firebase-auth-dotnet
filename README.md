@@ -52,17 +52,12 @@ All the following example code follows on from the instantiation of the `Firebas
 ### Sign up with email / password
 Creates a new email and password user.
 
+|||
 |-----|-----|
 |Firebase Endpoitn Documentation | signupNewUser |
 |Firebase API Endpoint | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 |Request C# Type | `SignUpNewUserRequest` |
 |Response C# Type| `SignUpNewUserResponse` |
-
-#### Request / Response Types
-| Type        | Documentation           |
-| ------------- |:-------------:|
-| `SignUpNewUserRequest`| [Refer to Firebase docs](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
-| `SignUpNewUserResponse`| [Refer to Firebase docs](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) 
 
 #### Example
 ~~~~
