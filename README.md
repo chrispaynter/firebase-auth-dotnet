@@ -1,7 +1,7 @@
 # firebase-auth-dotnet
 A dotnet standard2.0 SDK for Firebase Authentication that aims to follow the Google Firebase Auth API exactly, as per the official documentation - https://firebase.google.com/docs/reference/rest/auth/.
 
-*This is a work in progress*
+**This is a work in progress - **
 I'm currently only implementing the end points I need in my current projects. If you'd like to submit a pull request, please do!
 
 ## Getting Started
