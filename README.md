@@ -16,7 +16,7 @@ var authOptions = new FirebaseAuthOptions()
     WebApiKey = "<YOUR PROJECT'S WEB API KEY>"
 }
 
-var authService = new FirebaseAuthService(authOptions);
+var firebase = new FirebaseAuthService(authOptions);
 ~~~~
 
 ### Using .NET Core
@@ -49,7 +49,7 @@ Finally, the documentation of each endpoint's requests and responses are light h
 
 
 **NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
-
+***
 ### Sign up with email / password
 Creates a new email and password user.
 
@@ -68,7 +68,7 @@ var request = new SignUpNewUserRequest()
     Password = "validpassword"
 };
 
-var response = await service.SignUpNewUser(request);
+var response = await firebase.SignUpNewUser(request);
 ~~~~
 
 ## Unit Tests
