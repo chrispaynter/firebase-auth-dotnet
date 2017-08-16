@@ -41,6 +41,13 @@ The example code follows on from the instantiation of the `FirebaseAuthService` 
 
 ### [Sign up with email / password](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password)
 
+| Request Type    | Response Type           |
+| ------------- |:-------------:|
+| SignUpNewUserRequest      | SignUpNewUserResponse |
+
+~~~~
+var request = new SignUpNew
+~~~~
 
 ## Unit Tests
 Each endpoint comes with a comprehensive suite of tests to ensure the SDK passes and receives data as expected per the documentation, as well as handles error circumstances.
