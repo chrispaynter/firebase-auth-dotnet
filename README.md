@@ -68,10 +68,10 @@ Creates a new email and password user.
 
 |||
 |-----|-----|
-| Firebase API Endpoint | `signupNewUser` |
-| Request C# Type | `SignUpNewUserRequest` |
-| Response C# Type| `SignUpNewUserResponse` |
-| Official Documentation | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
+| **Firebase API Endpoint** | `signupNewUser` |
+| **Request C# Type** | `SignUpNewUserRequest` |
+| **Response C# Type**| `SignUpNewUserResponse` |
+| **Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
 #### Example
 ~~~~
