@@ -18,7 +18,7 @@ dotnet add package Firebase.Auth.Rest
 In Nuget package manager use:
 ~~~~
 Install-Package Firebase.Auth.Rest
-~~~
+~~~~
 
 ### Creating The API Service
 The `FirebaseAuthService` class will contains all the endpoints that the Firebase Rest API offers. This class requires a `FirebaseAuthOptions` object to be passed through in it's constructor, which contians keys required to connect and authentiate with Firebase API.
