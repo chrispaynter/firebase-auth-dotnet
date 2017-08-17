@@ -81,7 +81,15 @@ var request = new SignUpNewUserRequest()
     Password = "validpassword"
 };
 
-var response = await firebase.SignUpNewUser(request);
+try
+{
+    var response  await firebase.SignUpNewUser(request);
+}
+catch(FirebaseAuthException e)
+{
+    // App specific error handling.
+}
+
 ~~~~
 
 ## Unit Tests
