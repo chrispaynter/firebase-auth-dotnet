@@ -7,6 +7,19 @@ The official documentation can be found [here](https://firebase.google.com/docs/
 
 ## Getting Started
 
+### Installation
+You can add *firebase-auth-dotnet* to your solution by using Nuget (https://www.nuget.org/packages/Firebase.Auth.Rest)
+
+On the command line use:
+~~~~
+dotnet add package Firebase.Auth.Rest
+~~~~
+
+In Nuget package manager use:
+~~~~
+Install-Package Firebase.Auth.Rest
+~~~
+
 ### Creating The API Service
 The `FirebaseAuthService` class will contains all the endpoints that the Firebase Rest API offers. This class requires a `FirebaseAuthOptions` object to be passed through in it's constructor, which contians keys required to connect and authentiate with Firebase API.
 
