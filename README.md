@@ -55,3 +55,21 @@ There is a `.gitignore` file at the root of this project which prevents the `set
   "validDisabledPassword": "<THE PASSWORD OF THE SAME DISABLED USER>"
 }
 ~~~~
+
+## Publishing Nuget Package
+https://docs.microsoft.com/en-us/nuget/guides/create-net-standard-packages-vs2017
+
+You'll need the MSBuild executable, likely located here:
+`C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin`
+
+I add that to my path.
+
+Run this command from the `Firebase.Auth` project directoy.
+~~~~
+msbuild /t:pack /p:Configuration=Release
+~~~~
+
+Then to push to nuget
+~~~~
+nuget push Firebase.Auth.Rest.1.0.1.nupkg -Source https://www.nuget.org/api/v2/package
+~~~~

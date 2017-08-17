@@ -3,13 +3,15 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Firebase.Auth.Payloads;
-using Firebase.Auth.Payloads.Firebase.Auth.Payloads;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Firebase.Auth
 {
-    public class FirebaseAuthService: IDisposable
+    /// <summary>
+    /// Service for connecting and communicating with the Firebase Auth REST API
+    /// </summary>
+    public class FirebaseAuthService: IFirebaseAuthService, IDisposable
     {
         private FirebaseAuthOptions options;
         private readonly HttpClient client;
@@ -20,6 +22,7 @@ namespace Firebase.Auth
             MissingMemberHandling = MissingMemberHandling.Ignore
         };
 
+        /// <param name="options">Options to configure the service to communicate with Firebase REST API.</param>
         public FirebaseAuthService(FirebaseAuthOptions options)
         {
             this.options = options;
@@ -31,11 +34,18 @@ namespace Firebase.Auth
             return $"{url}/{endpoint}?key={options.WebApiKey}";
         }
 
+        /// <summary>
+        /// Creates a new user in Firebase.
+        /// </summary>
         public async Task<SignUpNewUserResponse> SignUpNewUser(SignUpNewUserRequest request)
         {
             return await Post<SignUpNewUserResponse>(Url("signupNewUser"), request);
         }
 
+        /// <summary>
+        /// Verifies the password for a given user. This is equivalent to signing the user in
+        /// with an email and password.
+        /// </summary>
         public async Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request)
         {
             return await Post<VerifyPasswordResponse>(Url("verifyPassword"), request);
@@ -78,6 +88,9 @@ namespace Firebase.Auth
             }
         }
 
+        /// <summary>
+        /// Cleans up the web client after usage.
+        /// </summary>
         public void Dispose()
         {
             client.Dispose();

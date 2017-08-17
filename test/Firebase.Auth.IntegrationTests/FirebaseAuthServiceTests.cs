@@ -1,5 +1,4 @@
 using Firebase.Auth.Payloads;
-using Firebase.Auth.Payloads.Firebase.Auth.Payloads;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;

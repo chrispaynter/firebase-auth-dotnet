@@ -1,5 +1,8 @@
 namespace Firebase.Auth.Payloads
 {
+    /// <summary>
+    /// Response object after signing up a new user with an email and password.
+    /// </summary>
     public class SignUpNewUserResponse : BaseResponse
     {
         /// <summary>
