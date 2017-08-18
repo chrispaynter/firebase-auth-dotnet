@@ -1,9 +1,9 @@
-# firebase-auth-dotnet
+# .NET Firebase Rest Authentication API Client
 A .NET API client for Firebase Authentication REST API that aims to follow the Google Firebase Auth API and documentation exactly.
 
 The official documentation can be found [here](https://firebase.google.com/docs/reference/rest/auth/), and I link to the appropriate sections of Firebase's docs as we discuss the endpoints below.
 
-**NOTE: This is a work in progress** - I'm currently only implementing the end points I need in my current projects. If you'd like to submit a pull request, please do!
+**NOTE: This is a work in progress** but the foundation of this library is clean and well tested, so adding endpoints should be straightforward and pull requests are welcome!
 
 ## Getting Started
 
