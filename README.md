@@ -53,18 +53,28 @@ Then in your **appsettings.json** or your secrets configuration, add this.
 ~~~~
 
 
-## Endpoints
-The SDK is currently being implemented on an endpoint by endpoint basis, with the following Firebase Auth endpoints having been implemented thus far.
-
-All the following example code follows on from the instantiation of the `FirebaseAuthService` that we saw in the Getting Started section.
-
-Finally, the documentation of each endpoint's requests and responses are light here, because it follows the Firebase API exactly. Thus, each section will link through to the appropriate Firebase endpoint docs.
+# Endpoints
 
 
-**NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
-***
-### :earth_asia:  Sign up with email / password
-Creates a new email and password user.
+>**Only some endpoints are available (for now).**
+>
+>The SDK is currently being implemented on an endpoint by endpoint basis (as I need them).
+All code examples use the `FirebaseAuthService` that we saw created in the [Getting Started](#getting-started) section. 
+> * [Sign up with email and password](#Sign-up-with-email-and-password)
+> * [Sign in with email and password](#Sign-in-with-email-and-password)
+
+>**You can follow Firebase's Official documentation in conjunction with this.**
+>
+>This client follows the official Firebase Auth Rest API documentation as closely as possible. Thus, for more detailed info there is a link for each endpoint to it's official documentation. 
+
+
+>**Only Async method calls are supported** 
+>
+>All endpoints are implemented as standard .NET asynchronous methods.
+
+
+## Sign up with email and password
+>Creates a new email and password user.
 
 |||
 |-----|-----|
@@ -73,7 +83,7 @@ Creates a new email and password user.
 | **Response C# Type**| `Firebase.Auth.Payloads.SignUpNewUserResponse` |
 | **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
-#### Example
+### Example
 ~~~~
 var request = new SignUpNewUserRequest()
 {
@@ -91,9 +101,9 @@ catch(FirebaseAuthException e)
 }
 
 ~~~~
-***
-### :earth_asia: Sign in with email / password
-Signs an existing user in with their email and password.
+
+## Sign in with email and password
+>Signs an existing user in with their email and password.
 
 |||
 |-----|-----|
@@ -102,7 +112,7 @@ Signs an existing user in with their email and password.
 | **Response C# Type**| `Firebase.Auth.Payloads.VerifyPasswordResponse` |
 | **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
-#### Example
+### Example
 ~~~~
 var request = new VerifyPasswordRequest()
 {
@@ -123,9 +133,8 @@ catch(FirebaseAuthException e)
 
 ## Unit Tests
 Each endpoint comes with a comprehensive suite of tests to ensure the SDK passes and receives data as expected per the documentation, as well as handles error circumstances.
-### Firebase.Auth.IntegrationTests
+### How to configure secrets.json for unit testing
 
-#### secrets.json
 It is expected by the test suite that a file called `secrets.json` exists in the root directory of the `Firebase.Auth.IntegrationTests` project. This file contains the secret keys needed to access Firebase for these integration tests.
 
 There is a `.gitignore` file at the root of this project which prevents the `settings.json` file from accidently being committed to the repository with the secrets.
@@ -144,14 +153,14 @@ https://docs.microsoft.com/en-us/nuget/guides/create-net-standard-packages-vs201
 You'll need the MSBuild executable, likely located here:
 `C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin`
 
-I add that to my path.
+I generally add that to my path as I don't need any other version of MSBuild available on the command line.
 
-Run this command from the `Firebase.Auth` project directoy.
+The project has been set to generate a nuget packag on build, but to package manually, run this command from the `Firebase.Auth` project directoy.
 ~~~~
 msbuild /t:pack /p:Configuration=Release
 ~~~~
 
-Then to push to nuget
+Then, once you have the package, to push to nuget
 ~~~~
 nuget push Firebase.Auth.Rest.1.0.1.nupkg -Source https://www.nuget.org/api/v2/package
 ~~~~
