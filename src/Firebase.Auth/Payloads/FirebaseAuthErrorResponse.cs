@@ -17,6 +17,7 @@ namespace Firebase.Auth.Payloads
 
 
         private FirebaseAuthMessageType _messageType;
+
         [JsonIgnore]
         public FirebaseAuthMessageType MessageType
         {
