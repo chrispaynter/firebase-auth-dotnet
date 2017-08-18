@@ -7,6 +7,19 @@ The official documentation can be found [here](https://firebase.google.com/docs/
 
 ## Getting Started
 
+### Installation
+You can add *firebase-auth-dotnet* to your solution by using Nuget (https://www.nuget.org/packages/Firebase.Auth.Rest)
+
+On the command line use:
+~~~~
+dotnet add package Firebase.Auth.Rest
+~~~~
+
+In Nuget package manager use:
+~~~~
+Install-Package Firebase.Auth.Rest
+~~~~
+
 ### Creating The API Service
 The `FirebaseAuthService` class will contains all the endpoints that the Firebase Rest API offers. This class requires a `FirebaseAuthOptions` object to be passed through in it's constructor, which contians keys required to connect and authentiate with Firebase API.
 
@@ -55,10 +68,10 @@ Creates a new email and password user.
 
 |||
 |-----|-----|
-| Firebase API Endpoint | `signupNewUser` |
-| Request C# Type | `SignUpNewUserRequest` |
-| Response C# Type| `SignUpNewUserResponse` |
-| Official Documentation | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
+| **Firebase API Endpoint** | `signupNewUser` |
+| **Request C# Type** | `SignUpNewUserRequest` |
+| **Response C# Type**| `SignUpNewUserResponse` |
+| **Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
 #### Example
 ~~~~
@@ -68,7 +81,15 @@ var request = new SignUpNewUserRequest()
     Password = "validpassword"
 };
 
-var response = await firebase.SignUpNewUser(request);
+try
+{
+    var response  await firebase.SignUpNewUser(request);
+}
+catch(FirebaseAuthException e)
+{
+    // App specific error handling.
+}
+
 ~~~~
 
 ## Unit Tests
