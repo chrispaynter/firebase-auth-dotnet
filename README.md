@@ -175,7 +175,7 @@ _However_, it does seem consistent enough that the message string returned by Fi
 **If the error message cannot be deserialized** and matched to an existing type, `MessageType` will default to the value `Unknown`.
 > More types will be added as more of the Firebase API endpoints are added to the client.
 
-## Unit Tests
+# Unit Tests
 Each endpoint comes with a comprehensive suite of tests to ensure the SDK passes and receives data as expected per the documentation, as well as handles error circumstances.
 ### How to configure secrets.json for unit testing
 
@@ -191,7 +191,7 @@ There is a `.gitignore` file at the root of this project which prevents the `set
   "validDisabledPassword": "<THE PASSWORD OF THE SAME DISABLED USER>"
 }
 ~~~~
-## Publishing Nuget Package
+# Publishing Nuget Package
 https://docs.microsoft.com/en-us/nuget/guides/create-net-standard-packages-vs2017
 
 You'll need the MSBuild executable, likely located here:
