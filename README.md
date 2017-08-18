@@ -173,7 +173,7 @@ _However_, it does seem consistent enough that the message string returned by Fi
 |`UserDisabled`|`USER_DISABLED`|The user account has been disabled by an administrator.|
 
 **If the error message cannot be deserialized** and matched to an existing type, `MessageType` will default to the value `Unknown`.
-
+> More types will be added as more of the Firebase API endpoints are added to the client.
 
 ## Unit Tests
 Each endpoint comes with a comprehensive suite of tests to ensure the SDK passes and receives data as expected per the documentation, as well as handles error circumstances.
