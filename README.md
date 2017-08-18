@@ -63,15 +63,15 @@ Finally, the documentation of each endpoint's requests and responses are light h
 
 **NOTE ON ASYNC:** All endpoints are implemented as asynchronous.
 ***
-### Sign up with email / password
+### :earth_asia:  Sign up with email / password
 Creates a new email and password user.
 
 |||
 |-----|-----|
 | **Firebase API Endpoint** | `signupNewUser` |
-| **Request C# Type** | `SignUpNewUserRequest` |
-| **Response C# Type**| `SignUpNewUserResponse` |
-| **Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
+| **Request C# Type** | `Firebase.Auth.Payloads.SignUpNewUserRequest` |
+| **Response C# Type**| `Firebase.Auth.Payloads.SignUpNewUserResponse` |
+| **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
 #### Example
 ~~~~
@@ -84,6 +84,35 @@ var request = new SignUpNewUserRequest()
 try
 {
     var response  await firebase.SignUpNewUser(request);
+}
+catch(FirebaseAuthException e)
+{
+    // App specific error handling.
+}
+
+~~~~
+***
+### :earth_asia: Sign in with email / password
+Signs an existing user in with their email and password.
+
+|||
+|-----|-----|
+| **Firebase API Endpoint** | `verifyPassword` |
+| **Request C# Type** | `Firebase.Auth.Payloads.SignUpNewUserRequest` |
+| **Response C# Type**| `Firebase.Auth.Payloads.SignUpNewUserResponse` |
+| **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
+
+#### Example
+~~~~
+var request = new VerifyPasswordRequest()
+{
+    Email = "valid@test.com",
+    Password = "validpassword"
+};
+
+try
+{
+    var response  await firebase.VerifyPassword(request);
 }
 catch(FirebaseAuthException e)
 {
