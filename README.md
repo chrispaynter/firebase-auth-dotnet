@@ -131,6 +131,50 @@ catch(FirebaseAuthException e)
 
 ~~~~
 
+## Error Handling
+Errors that occur during calls to the Firebase Auth API are thrown as an exception of the type `Firebase.Auth.FirebaseAuthException`.
+
+This exception object has a property called `Error` which is of the enum type Firebase.Auth.Payloads.FirebaseAuthErrorResponse with the following properties (as per [official documentation](https://firebase.google.com/docs/reference/rest/auth/#section-error-response)).
+
+The documentation is a bit light from Firebase on this format, I have added a description to each item as per my understanding thus far.
+
+|Name|Type| Description|
+|-----|-----|-----|
+| Errors | `Firebase.Auth.FirebaseAuthError` | A collection of sub errors returned (which I've strongly typed). I've thus far only ever seen one item in this collection and it's always the same error message as per the Message property in the row below. |
+| Code | `System.Int32` | Seems to always be the HTTP status code of the request to Firebase servers.|
+| Message | `System.String` | The error message returned.  |
+| MessageType | `Firebase.Auth.FirebaseAuthMessageType` | An enumeration type created to strongly type error messages returned by Firebase API. See below the section [Handling Error Message Types](#handling-error-message-types) |
+
+### Handling Error Message Types
+The `MessageType` property is my attempt at creating a strongly typed interface over the error type sent back from Firebase. This is slightly tricky because sometimes the message from firebase might look like this
+
+~~~~
+EMAIL_EXISTS
+~~~~
+where other times it might look like this
+~~~~
+INVALID_OOB_CODE: The action code is invalid. This can happen if the code is malformed, expired, or has already been used.
+~~~~
+
+In the former I could reliably use the `Newtonsoft.Json` library to auto deserialize the enum type, however in the latter, the risk that the string could change slightly and break the deserialization feels quite high.
+
+_However_, it does seem consistent enough that the message string returned by Firebase will always contain the error type at the start of the string, so the `MessageType` property works based on this convention. I can't gaurantee this is the case as it's not covered in the official docs, but thus far it seems solid.
+
+#### Error Message Types
+|Type|FirebaseType| Description|
+|-----|-----|-----|
+|`OperationNotAllowed`|`OPERATION_NOT_ALLOWED`| Password sign-in is disabled for this project. |
+|`EmailExists`|`EMAIL_EXISTS`|The email address is already in use by another account.|
+|`WeakPassword`|`WEAK_PASSWORD`|The password must be 6 characters long or more.|
+|`MissingPassword`|`MISSING_PASSWORD`|Password is required in this request|
+|`InvalidPassword`|`INVALID_PASSWORD`| The password is invalid or the user does not have a password.|
+|`InvalidEmail`|`INVALID_EMAIL`|The email address is badly formatted.|
+|`MissingEmail`|`EMAIL_NOT_FOUND`|There is no user record corresponding to this identifier. The user may have been deleted.|
+|`UserDisabled`|`USER_DISABLED`|The user account has been disabled by an administrator.|
+
+**If the error message cannot be deserialized** and matched to an existing type, `MessageType` will default to the value `Unknown`.
+
+
 ## Unit Tests
 Each endpoint comes with a comprehensive suite of tests to ensure the SDK passes and receives data as expected per the documentation, as well as handles error circumstances.
 ### How to configure secrets.json for unit testing

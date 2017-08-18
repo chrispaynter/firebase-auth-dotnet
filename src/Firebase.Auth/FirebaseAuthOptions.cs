@@ -12,7 +12,7 @@ namespace Firebase.Auth
         {
             if (string.IsNullOrEmpty(webApiKey))
             {
-                throw new System.ArgumentException("message", nameof(webApiKey));
+                throw new System.ArgumentException("Firebase Project Web API Key is required.", nameof(webApiKey));
             }
 
             WebApiKey = webApiKey;
