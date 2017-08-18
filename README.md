@@ -98,8 +98,8 @@ Signs an existing user in with their email and password.
 |||
 |-----|-----|
 | **Firebase API Endpoint** | `verifyPassword` |
-| **Request C# Type** | `Firebase.Auth.Payloads.SignUpNewUserRequest` |
-| **Response C# Type**| `Firebase.Auth.Payloads.SignUpNewUserResponse` |
+| **Request C# Type** | `Firebase.Auth.Payloads.VerifyPasswordRequest` |
+| **Response C# Type**| `Firebase.Auth.Payloads.VerifyPasswordResponse` |
 | **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password) |
 
 #### Example
