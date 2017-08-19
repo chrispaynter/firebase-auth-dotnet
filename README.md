@@ -39,14 +39,14 @@ In your **Startup.cs** file you might do something like this.
 ~~~~
 public void ConfigureServices(IServiceCollection services)
 {
-    var authOptions = Configuration.GetSection("AuthOptions").Get<AuthOptions>();
-    services.AddScoped<FirebaseAuthProvider>(u => new FirebaseAuthProvider(new FirebaseConfig(authOptions.WebApiKey)));
+    var authOptions = configuration.GetSection("FirebaseAuth").Get<FirebaseAuthOptions>();
+    services.AddScoped<IFirebaseAuthService>(u => new FirebaseAuthService(authOptions));
 }
 ~~~~
 Then in your **appsettings.json** or your secrets configuration, add this.
 ~~~~
 {
-  "AuthOptions": {
+  "FirebaseAuth": {
     "WebApiKey": "<YOUR PROJECT'S WEB API KEY>"
   }
 }

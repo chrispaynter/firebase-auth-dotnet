@@ -332,7 +332,7 @@ namespace Firebase.Auth.Tests
 
         public FirebaseAuthService CreateService()
         {
-            return new FirebaseAuthService(new FirebaseAuthOptions(webApiKey));
+            return new FirebaseAuthService(new FirebaseAuthOptions() { WebApiKey = webApiKey });
         }
 
         #endregion
