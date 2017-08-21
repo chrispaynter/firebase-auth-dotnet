@@ -206,5 +206,5 @@ msbuild /t:pack /p:Configuration=Release
 
 Then, once you have the package, to push to nuget
 ~~~~
-nuget push Firebase.Auth.Rest.1.0.1.nupkg -Source https://www.nuget.org/api/v2/package
+nuget push Firebase.Auth.Rest.1.1.1-beta.nupkg -Source https://www.nuget.org/api/v2/package
 ~~~~
