@@ -11,12 +11,12 @@ namespace Firebase.Auth
         /// <summary>
         /// Creates a new user in Firebase.
         /// </summary>
-        Task<SignUpNewUserResponse> SignUpNewUser(SignUpNewUserRequest request);
+        Task<SignUpNewUserResponse> SignUpNewUserAsync(SignUpNewUserRequest request);
 
         /// <summary>
         /// Verifies the password for a given user. This is equivalent to signing the user in
         /// with an email and password.
         /// </summary>
-        Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request);
+        Task<VerifyPasswordResponse> VerifyPasswordAsync(VerifyPasswordRequest request);
     }
 }

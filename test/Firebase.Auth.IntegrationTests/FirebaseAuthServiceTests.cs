@@ -39,7 +39,7 @@ namespace Firebase.Auth.Tests
                     Password = "testasdf32t23t23t1234"
                 };
 
-                return await service.SignUpNewUser(request);
+                return await service.SignUpNewUserAsync(request);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Firebase.Auth.Tests
                     Password = "anyoldpassword"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUser(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUserAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.EmailExists, exception.Error?.MessageType);
             }
         }
@@ -108,7 +108,7 @@ namespace Firebase.Auth.Tests
                     Password = "12345"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUser(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUserAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.WeakPassword, exception.Error?.MessageType);
             }
         }
@@ -124,7 +124,7 @@ namespace Firebase.Auth.Tests
                     Password = "validpassword"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUser(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUserAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.InvalidEmail, exception.Error?.MessageType);
             }
         }
@@ -140,7 +140,7 @@ namespace Firebase.Auth.Tests
                     Password = ""
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUser(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUserAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.MissingPassword, exception.Error?.MessageType);
             }
         }
@@ -156,7 +156,7 @@ namespace Firebase.Auth.Tests
                     Password = "asdfasdfasdfasdf"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUser(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.SignUpNewUserAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.MissingEmail, exception.Error?.MessageType);
             }
         }
@@ -175,7 +175,7 @@ namespace Firebase.Auth.Tests
                     Password = knownValidPassword
                 };
 
-                return await service.VerifyPassword(request);
+                return await service.VerifyPasswordAsync(request);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Firebase.Auth.Tests
                     Password = "anyoldpassword"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.EmailNotFound, exception.Error?.MessageType);
             }
         }
@@ -252,7 +252,7 @@ namespace Firebase.Auth.Tests
                     Password = "1234588272727272918*(*D"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.InvalidPassword, exception.Error?.MessageType);
             }
         }
@@ -268,7 +268,7 @@ namespace Firebase.Auth.Tests
                     Password = "validpassword"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.InvalidEmail, exception.Error?.MessageType);
             }
         }
@@ -284,7 +284,7 @@ namespace Firebase.Auth.Tests
                     Password = ""
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.MissingPassword, exception.Error?.MessageType);
             }
         }
@@ -300,7 +300,7 @@ namespace Firebase.Auth.Tests
                     Password = "asdfasdfasdfasdf"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.InvalidEmail, exception.Error?.MessageType);
             }
         }
@@ -316,7 +316,7 @@ namespace Firebase.Auth.Tests
                     Password = knownDisabledPassword
                 };
                 //NOTE: Make sure the user is disabled!
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPassword(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyPasswordAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.UserDisabled, exception.Error?.MessageType);
             }
         }

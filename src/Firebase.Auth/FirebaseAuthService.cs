@@ -37,21 +37,21 @@ namespace Firebase.Auth
         /// <summary>
         /// Creates a new user in Firebase.
         /// </summary>
-        public async Task<SignUpNewUserResponse> SignUpNewUser(SignUpNewUserRequest request)
+        public async Task<SignUpNewUserResponse> SignUpNewUserAsync(SignUpNewUserRequest request)
         {
-            return await Post<SignUpNewUserResponse>(Url("signupNewUser"), request);
+            return await PostAsync<SignUpNewUserResponse>(Url("signupNewUser"), request);
         }
 
         /// <summary>
         /// Verifies the password for a given user. This is equivalent to signing the user in
         /// with an email and password.
         /// </summary>
-        public async Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request)
+        public async Task<VerifyPasswordResponse> VerifyPasswordAsync(VerifyPasswordRequest request)
         {
-            return await Post<VerifyPasswordResponse>(Url("verifyPassword"), request);
+            return await PostAsync<VerifyPasswordResponse>(Url("verifyPassword"), request);
         }
 
-        private async Task<TResponse> Post<TResponse>(string endpoint, object request) where TResponse : class
+        private async Task<TResponse> PostAsync<TResponse>(string endpoint, object request) where TResponse : class
         {
             string responseJson = "";
 
