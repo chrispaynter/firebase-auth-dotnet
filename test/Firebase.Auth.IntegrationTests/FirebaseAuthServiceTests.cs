@@ -13,6 +13,7 @@ namespace Firebase.Auth.Tests
         private readonly string knownValidPassword;
         private readonly string knownDisabledEmail;
         private readonly string knownDisabledPassword;
+        private readonly string knownRefreshToken;
 
         public FirebaseAuthServiceTests()
         {
@@ -25,7 +26,90 @@ namespace Firebase.Auth.Tests
             knownValidPassword = config["knownVaidPassword"];
             knownDisabledEmail = config["knownDisabledEmail"];
             knownDisabledPassword = config["knownDisabledPassword"];
+            knownRefreshToken = config["knownRefreshToken"];
         }
+
+        #region ExchangeRefreshToken
+
+        private async Task<ExchangeRefreshTokenResponse> ExchangeRefreshToken_ValidRefreshToken()
+        {
+            using (var service = CreateService())
+            {
+                var request = new ExchangeRefreshTokenRequest()
+                {
+                    RefreshToken = knownRefreshToken
+                };
+
+                return await service.ExchangeRefreshToken(request);
+            }
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_ReturnsIdToken()
+        {
+            //NOTE: If the known refresh token starts failing these tests, it's an indicator
+            // that Google Firebase have expired it. No clear information about when these
+            // refresh tokens expire, but the date right now is 2/09/2017, will be an
+            // interesting test to see how long it can last for.
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.NotNull(response.IdToken);
+            Assert.NotEmpty(response.IdToken);
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_ReturnsExpiresIn()
+        {
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.True(response.ExpiresIn > 0, "Expires in not set");
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_ReturnsProjectId()
+        {
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.NotNull(response.ProjectId);
+            Assert.NotEmpty(response.ProjectId);
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_ReturnsRefreshToken()
+        {
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.NotNull(response.RefreshToken);
+            Assert.NotEmpty(response.RefreshToken);
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_ReturnsUserId()
+        {
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.NotNull(response.UserId);
+            Assert.NotEmpty(response.UserId);
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_ValidRefreshToken_TokenTypeIsBearer()
+        {
+            var response = await ExchangeRefreshToken_ValidRefreshToken();
+            Assert.Equal("Bearer", response.TokenType);
+        }
+
+        [Fact]
+        public async Task ExchangeRefreshToken_InvalidRefreshToken_ThrowsInvalidRefreshToken()
+        {
+            using (var service = CreateService())
+            {
+                var request = new ExchangeRefreshTokenRequest()
+                {
+                    RefreshToken = "invalidtoken"
+                };
+
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.ExchangeRefreshToken(request));
+                Assert.Equal(FirebaseAuthMessageType.InvalidRefreshToken, exception.Error?.MessageType);
+            }
+        }
+
+        #endregion
 
         #region SignUpNewUser
 

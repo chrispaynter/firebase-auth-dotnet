@@ -9,6 +9,11 @@ namespace Firebase.Auth
     public interface IFirebaseAuthService
     {
         /// <summary>
+        /// Exchanges a refresh token for a new Id token with a renewed expiry.
+        /// </summary>
+        Task<ExchangeRefreshTokenResponse> ExchangeRefreshToken(ExchangeRefreshTokenRequest request);
+
+        /// <summary>
         /// Creates a new user in Firebase.
         /// </summary>
         Task<SignUpNewUserResponse> SignUpNewUserAsync(SignUpNewUserRequest request);

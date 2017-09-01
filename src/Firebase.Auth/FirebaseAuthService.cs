@@ -15,7 +15,8 @@ namespace Firebase.Auth
     {
         private FirebaseAuthOptions options;
         private readonly HttpClient client;
-        private string url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
+        private string apiUrl = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
+        private string secureTokenUrl = "https://securetoken.googleapis.com/v1/token?key={0}";
         private static JsonSerializerSettings jsonSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -26,20 +27,29 @@ namespace Firebase.Auth
         public FirebaseAuthService(FirebaseAuthOptions options)
         {
             this.options = options;
-            this.client = new HttpClient();
+            client = new HttpClient();
+            secureTokenUrl = string.Format(secureTokenUrl, options.WebApiKey);
         }
 
-        private string Url(string endpoint)
+        private string ApiUrl(string endpoint)
         {
-            return $"{url}/{endpoint}?key={options.WebApiKey}";
+            return $"{apiUrl}/{endpoint}?key={options.WebApiKey}";
         }
 
+        /// <summary>
+        /// Exchanges a refresh token for a new Id token with a renewed expiry.
+        /// </summary>
+        public async Task<ExchangeRefreshTokenResponse> ExchangeRefreshToken(ExchangeRefreshTokenRequest request)
+        {
+            return await PostAsync<ExchangeRefreshTokenResponse>(secureTokenUrl, request);
+        }
+         
         /// <summary>
         /// Creates a new user in Firebase.
         /// </summary>
         public async Task<SignUpNewUserResponse> SignUpNewUserAsync(SignUpNewUserRequest request)
         {
-            return await PostAsync<SignUpNewUserResponse>(Url("signupNewUser"), request);
+            return await PostAsync<SignUpNewUserResponse>(ApiUrl("signupNewUser"), request);
         }
 
         /// <summary>
@@ -48,8 +58,10 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<VerifyPasswordResponse> VerifyPasswordAsync(VerifyPasswordRequest request)
         {
-            return await PostAsync<VerifyPasswordResponse>(Url("verifyPassword"), request);
+            return await PostAsync<VerifyPasswordResponse>(ApiUrl("verifyPassword"), request);
         }
+
+
 
         private async Task<TResponse> PostAsync<TResponse>(string endpoint, object request) where TResponse : class
         {
