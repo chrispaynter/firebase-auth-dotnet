@@ -66,25 +66,31 @@ namespace Firebase.Auth
             }
             catch (Exception e)
             {
+                FirebaseAuthException firebaseException;
+
                 try
                 {
+                    // Let's try and construct a FirebaseAuthException from the response.
+
                     var errorResponse = JsonConvert.DeserializeObject<FirebaseAuthErrorResponseWrapper>(responseJson, jsonSettings);
-                    throw new FirebaseAuthException($"Call to Firebase Auth API resulted in a bad request: {errorResponse.Error.Message}", e)
+                    firebaseException = new FirebaseAuthException($"Call to Firebase Auth API resulted in a bad request: {errorResponse.Error.Message}", e)
                     {
                         Error = errorResponse.Error,
                         ResponseJson = responseJson
                     };
                 }
-                catch (JsonSerializationException ex)
+                catch (Exception ex)
                 {
-                    throw new FirebaseAuthException("Deserializing Firebase Auth API response failed", ex)
+                    // If we can't, literally nothing we can do but return a generic exception.
+
+                    throw new FirebaseAuthException("An unexpected exception occured while trying to deserialize the error response from Firebase. This probably means that the exception is not from Firebase, but from the HttpClient request.", ex)
                     {
                         OriginRequestException = e,
                         ResponseJson = responseJson
                     };
                 }
 
-
+                throw firebaseException;
             }
         }
 
