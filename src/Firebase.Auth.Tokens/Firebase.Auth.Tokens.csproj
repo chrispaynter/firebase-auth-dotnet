@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Firebase.Auth.Tokens</PackageId>
+    <Version>1.0.0-beta</Version>
+    <Authors>Chris Paynter</Authors>
+    <Description>A supporting package for Firebase.Auth.Rest that makes creating custom tokens easier.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>This library was created to add support for creating custom firebase tokens, without having to introduce crypto dependencies into Firebase.Auth.Rest.</PackageReleaseNotes>
+    <Copyright></Copyright>
+    <PackageTags>firebase auth jwt dotnet core</PackageTags>
+    <Version>1.0.0-beta</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Firebase.Auth.Tokens.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jose-jwt" Version="2.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.3" />
+  </ItemGroup>
+
+</Project>

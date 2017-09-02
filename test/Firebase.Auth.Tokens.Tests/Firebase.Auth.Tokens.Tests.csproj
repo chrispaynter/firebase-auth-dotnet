@@ -4,23 +4,16 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
-    <AssemblyName>Firebase.Auth.IntegrationTests</AssemblyName>
-
-    <RootNamespace>Firebase.Auth.IntegrationTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
     <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Firebase.Auth.Tokens\Firebase.Auth.Tokens.csproj" />
-    <ProjectReference Include="..\..\src\Firebase.Auth\Firebase.Auth.csproj" />
     <ProjectReference Include="..\Firebase.Test\Firebase.Test.csproj" />
   </ItemGroup>
-
 
 </Project>

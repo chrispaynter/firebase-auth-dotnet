@@ -1,6 +1,10 @@
 using Firebase.Auth.Payloads;
+using Firebase.Auth.Tokens;
+using Firebase.Test;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,19 +19,81 @@ namespace Firebase.Auth.Tests
         private readonly string knownDisabledPassword;
         private readonly string knownRefreshToken;
 
+        private readonly string adminPrivateKey;
+        private readonly string adminClientEmail;
+
+
         public FirebaseAuthServiceTests()
         {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("secrets.json")
-                .Build();
+            var section = SharedTestConfiguration.Configuration.GetSection("projectContext");
 
-            webApiKey = config["firebaseWebApiKey"];
-            knownValidEmail = config["knownValidEmail"];
-            knownValidPassword = config["knownVaidPassword"];
-            knownDisabledEmail = config["knownDisabledEmail"];
-            knownDisabledPassword = config["knownDisabledPassword"];
-            knownRefreshToken = config["knownRefreshToken"];
+            webApiKey = section["firebaseWebApiKey"];
+            knownValidEmail = section["knownValidEmail"];
+            knownValidPassword = section["knownVaidPassword"];
+            knownDisabledEmail = section["knownDisabledEmail"];
+            knownDisabledPassword = section["knownDisabledPassword"];
+            knownRefreshToken = section["knownRefreshToken"];
+
+            var adminContext = SharedTestConfiguration.Configuration.GetSection("adminContext");
+            adminPrivateKey = adminContext["private_key"];
+            adminClientEmail = adminContext["client_email"];
         }
+
+        #region VerifyCustomToken
+
+        private string MakeCustomToken(string userId)
+        {
+            return MakeCustomToken(userId, null);
+        }
+        private string MakeCustomToken(string userId, Dictionary<string, object> claims)
+        {
+            var tokenGen = new FirebaseTokenGenerator(adminPrivateKey, adminClientEmail);
+            return tokenGen.EncodeToken(userId, claims);
+        }
+
+        private async Task<VerifyCustomTokenResponse> VerifyCustomToken_ValidRefreshToken(string token)
+        {
+            using (var service = CreateService())
+            {
+                var request = new VerifyCustomTokenRequest
+                {
+                    Token = token
+                };
+
+                return await service.VerifyCustomTokenAsync(request);
+            }
+        }
+
+
+        // TODO: It would be nice to test the situation where the private key is invalid, however I don't have time
+        // to generate the PKCS7 keys right now.
+
+        //[Fact]
+        //public async Task VerifyCustomToken_InvalidPrivateKey_ThrowsInvalidCustomToken()
+        //{
+        //    var key = "";
+        //    using (var reader = new StreamReader("invalid-private-key.key"))
+        //    {
+        //        key = reader.ReadToEnd();
+        //    }
+
+        //    var tokenGen = new FirebaseTokenGenerator(key, adminClientEmail);
+        //    var token = tokenGen.EncodeToken("testId");
+
+        //    using (var service = CreateService())
+        //    {
+        //        var request = new VerifyCustomTokenRequest()
+        //        {
+        //            Token = token
+        //        };
+
+        //        var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.VerifyCustomTokenAsync(request));
+        //        Assert.Equal(FirebaseAuthMessageType.InvalidCustomToken, exception.Error?.MessageType);
+        //    }
+        //}
+
+
+        #endregion
 
         #region ExchangeRefreshToken
 
@@ -40,7 +106,7 @@ namespace Firebase.Auth.Tests
                     RefreshToken = knownRefreshToken
                 };
 
-                return await service.ExchangeRefreshToken(request);
+                return await service.ExchangeRefreshTokenAsync(request);
             }
         }
 
@@ -104,7 +170,7 @@ namespace Firebase.Auth.Tests
                     RefreshToken = "invalidtoken"
                 };
 
-                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.ExchangeRefreshToken(request));
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.ExchangeRefreshTokenAsync(request));
                 Assert.Equal(FirebaseAuthMessageType.InvalidRefreshToken, exception.Error?.MessageType);
             }
         }

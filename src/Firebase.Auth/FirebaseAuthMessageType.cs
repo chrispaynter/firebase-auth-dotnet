@@ -103,6 +103,17 @@ namespace Firebase.Auth
         [EnumMember(Value = "MISSING_REFRESH_TOKEN")]
         MissingRefreshToken,
 
-        
+        /// <summary>
+        /// The custom token format is incorrect or the token is invalid for some reason (e.g. expired, invalid signature etc.)
+        /// </summary>
+        [EnumMember(Value = "INVALID_CUSTOM_TOKEN")]
+        InvalidCustomToken,
+
+        /// <summary>
+        /// The custom token corresponds to a different Firebase project.
+        /// </summary>
+        [EnumMember(Value = "CREDENTIAL_MISMATCH")]
+        CredentialMismatch
+
     }
 }

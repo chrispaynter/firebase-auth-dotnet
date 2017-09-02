@@ -3,14 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Firebase.Auth.Rest</PackageId>
-    <PackageVersion>1.1.1-beta</PackageVersion>
+    <PackageVersion>1.1.2-beta</PackageVersion>
     <Authors>Chris Paynter</Authors>
     <Description>A .NET API client for Firebase Rest Authentication API that follows Google's API spec as precisely as possible.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageReleaseNotes>Documentation can be found at https://github.com/chrispaynter/firebase-auth-dotnet 
+
+It's a work in progress, but the foundation of this library is clean and well tested, so adding endpoints should be straightforward and pull requests are welcome over at the project repository on GitHub.</PackageReleaseNotes>
     <Copyright></Copyright>
-    <PackageTags>firebase auth</PackageTags>
-    <Version>1.1.1-beta</Version>
+    <PackageTags>firebase auth dotnet core</PackageTags>
+    <Version>1.1.2-beta</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
