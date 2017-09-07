@@ -92,6 +92,12 @@ namespace Firebase.Auth
         InvalidRefreshToken,
 
         /// <summary>
+        /// The user's credential is no longer valid. The user must sign in again.
+        /// </summary>
+        [EnumMember(Value = "INVALID_ID_TOKEN")]
+        InvalidIdToken,
+
+        /// <summary>
         /// The grant type specified is invalid. Generally only occurs on the securetoken Google API url.
         /// </summary>
         [EnumMember(Value = "INVALID_GRANT_TYPE")]

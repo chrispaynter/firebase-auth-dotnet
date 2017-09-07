@@ -68,5 +68,11 @@ namespace Firebase.Auth.IntegrationTests.Payloads
         {
             Message_Test("WEAK_PASSWORD: The password must be 6 characters long or more.", FirebaseAuthMessageType.WeakPassword);
         }
+
+        [Fact]
+        public void Message_InvalidIdTokenMessage_InvalidIdTokenType()
+        {
+            Message_Test("INVALID_ID_TOKEN:The user's credential is no longer valid. The user must sign in again.", FirebaseAuthMessageType.InvalidIdToken);
+        }
     }
 }

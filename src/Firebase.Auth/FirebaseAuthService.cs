@@ -26,13 +26,18 @@ namespace Firebase.Auth
         /// <param name="options">Options to configure the service to communicate with Firebase REST API.</param>
         public FirebaseAuthService(FirebaseAuthOptions options)
         {
-            this.options = options;
+            this.options = options ?? throw new ArgumentNullException(nameof(options));
             client = new HttpClient();
             secureTokenUrl = string.Format(secureTokenUrl, options.WebApiKey);
         }
 
         private string IdentityToolKitUrl(string endpoint)
         {
+            if (string.IsNullOrEmpty(endpoint))
+            {
+                throw new ArgumentException("message", nameof(endpoint));
+            }
+
             return $"{identityTookkitUrl}/{endpoint}?key={options.WebApiKey}";
         }
 
@@ -41,6 +46,11 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<VerifyCustomTokenResponse> VerifyCustomTokenAsync(VerifyCustomTokenRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return await PostAsync<VerifyCustomTokenResponse>(IdentityToolKitUrl("verifyCustomToken"), request);
         }
 
@@ -49,6 +59,11 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<ExchangeRefreshTokenResponse> ExchangeRefreshTokenAsync(ExchangeRefreshTokenRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return await PostAsync<ExchangeRefreshTokenResponse>(secureTokenUrl, request);
         }
 
@@ -57,6 +72,11 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<SignUpNewUserResponse> SignUpNewUserAsync(SignUpNewUserRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return await PostAsync<SignUpNewUserResponse>(IdentityToolKitUrl("signupNewUser"), request);
         }
 
@@ -66,13 +86,40 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<VerifyPasswordResponse> VerifyPasswordAsync(VerifyPasswordRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return await PostAsync<VerifyPasswordResponse>(IdentityToolKitUrl("verifyPassword"), request);
         }
 
+        /// <summary>
+        /// Get a user's data.
+        /// </summary>
+        public async Task<GetAccountInfoResponse> GetAccountInfoAsync(GetAccountInfoRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return await PostAsync<GetAccountInfoResponse>(IdentityToolKitUrl("getAccountInfo"), request);
+        }
 
 
         private async Task<TResponse> PostAsync<TResponse>(string endpoint, object request) where TResponse : class
         {
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
+
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             string responseJson = "";
 
             try
@@ -84,20 +131,23 @@ namespace Firebase.Auth
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<TResponse>(responseJson);
             }
-            catch (Exception e)
+            catch (HttpRequestException e)
             {
-                FirebaseAuthException firebaseException;
-
-                // Let's try and construct a FirebaseAuthException from the response.
-
                 var errorResponse = JsonConvert.DeserializeObject<FirebaseAuthErrorResponseWrapper>(responseJson, jsonSettings);
-                firebaseException = new FirebaseAuthException($"Call to Firebase Auth API resulted in a bad request: {errorResponse.Error.Message}", e)
+
+                if (errorResponse == null)
+                {
+                    // If we can't deserialize a Firebase response, then the exception is unexpected
+                    // and not caused by the call to EnsureSuccessStatusCode. All we can do here is bail.
+                    throw;
+                }
+
+                // Otherwise, we can throw a normal auth exception
+                throw new FirebaseAuthException($"Call to Firebase Auth API resulted in a bad request: {errorResponse.Error.Message}", e)
                 {
                     Error = errorResponse.Error,
                     ResponseJson = responseJson
                 };
-
-                throw firebaseException;
             }
         }
 

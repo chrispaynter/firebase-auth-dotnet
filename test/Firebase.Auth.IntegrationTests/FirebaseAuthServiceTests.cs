@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -470,6 +471,55 @@ namespace Firebase.Auth.Tests
                 Assert.Equal(FirebaseAuthMessageType.UserDisabled, exception.Error?.MessageType);
             }
         }
+
+        #endregion
+
+        #region GetAccountInfo
+
+        [Fact]
+        public async Task GetAccountInfo_InvalidIdToken_ThrowsInvalidIdToken()
+        {
+            using (var service = CreateService())
+            {
+                var request = new GetAccountInfoRequest()
+                {
+                    IdToken = "invalid"
+                };
+
+                var exception = await Assert.ThrowsAsync<FirebaseAuthException>(async () => await service.GetAccountInfoAsync(request));
+                Assert.Equal(FirebaseAuthMessageType.InvalidIdToken, exception.Error?.MessageType);
+            }
+        }
+
+        [Fact]
+        public async Task GetAccountInfo_ValidIdToken_ReturnsAccountInfo()
+        {
+            using (var service = CreateService())
+            {
+                var signInRequset = new VerifyPasswordRequest()
+                {
+                    Email = knownValidEmail,
+                    Password = knownValidPassword
+                };
+
+                var signInResponse = await service.VerifyPasswordAsync(signInRequset);
+
+                var request = new GetAccountInfoRequest()
+                {
+                    IdToken = signInResponse.IdToken
+                };
+
+                var accountInfoResponse = await service.GetAccountInfoAsync(request);
+
+                Assert.NotNull(accountInfoResponse);
+                Assert.Equal(1, accountInfoResponse.Users.Count());
+                Assert.Equal(knownValidEmail, accountInfoResponse.Users.FirstOrDefault().Email);
+
+                // Has a "password" provider
+                Assert.NotNull(accountInfoResponse.Users.Where(u => u.ProviderUserInfo.Any(x => x.ProviderId == "password")).FirstOrDefault());
+            }
+        }
+
 
         #endregion
 

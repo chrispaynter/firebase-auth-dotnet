@@ -28,5 +28,11 @@ namespace Firebase.Auth
         /// with an email and password.
         /// </summary>
         Task<VerifyPasswordResponse> VerifyPasswordAsync(VerifyPasswordRequest request);
+
+
+        /// <summary>
+        /// Get a user's data.
+        /// </summary>
+        Task<GetAccountInfoResponse> GetAccountInfoAsync(GetAccountInfoRequest request);
     }
 }
