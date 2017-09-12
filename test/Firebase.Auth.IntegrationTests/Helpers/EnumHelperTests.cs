@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Firebase.Auth.Helpers;
+﻿using Firebase.Auth.Helpers;
 using Xunit;
 
 namespace Firebase.Auth.IntegrationTests.Helpers
 {
     public class EnumHelperTests
     {
+        [Fact]
+        public void GetValueIfStringStartsWith_StringIsNull_ReturnsDefault()
+        {
+            string str = null;
+            var enumValue = EnumHelper.GetValueIfStringStartsWith<FirebaseAuthMessageType>(str);
+            Assert.Equal(FirebaseAuthMessageType.Unknown, enumValue);
+        }
+
         [Fact]
         public void GetValueIfStringStartsWith_DoesStartWith_ReturnsCorrectValue()
         {

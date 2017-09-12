@@ -19,6 +19,11 @@ namespace Firebase.Auth.Helpers
         /// <returns></returns>
         public static T GetValueIfStringStartsWith<T>(string str)
         {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return default(T);
+            }
+
             var enumType = typeof(T);
             foreach (var name in Enum.GetNames(enumType))
             {

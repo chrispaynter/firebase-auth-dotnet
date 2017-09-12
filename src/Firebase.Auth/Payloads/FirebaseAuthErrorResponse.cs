@@ -30,6 +30,13 @@ namespace Firebase.Auth.Payloads
 
                 return _messageType;
             }
+            set
+            {
+                // Have really only put this setter in so that client code can easily mockup
+                // these items in their tests, without having to add the verbose Firebase API messages
+                // into the Message property.
+                _messageType = value;
+            }
         }
     }
 }
