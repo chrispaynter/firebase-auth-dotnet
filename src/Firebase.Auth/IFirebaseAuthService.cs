@@ -18,5 +18,10 @@ namespace Firebase.Auth
         /// with an email and password.
         /// </summary>
         Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request);
+
+        /// <summary>
+        /// Verifies the user via refresh token.
+        /// </summary>
+        Task<VerifyRefreshTokenResponse> VerifyRefreshToken(VerifyRefreshTokenRequest request);
     }
 }

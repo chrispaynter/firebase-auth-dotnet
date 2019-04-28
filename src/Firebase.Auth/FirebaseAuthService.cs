@@ -15,8 +15,7 @@ namespace Firebase.Auth
     {
         private FirebaseAuthOptions options;
         private readonly HttpClient client;
-        private string url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
-        private static JsonSerializerSettings jsonSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             MissingMemberHandling = MissingMemberHandling.Ignore
@@ -29,9 +28,14 @@ namespace Firebase.Auth
             this.client = new HttpClient();
         }
 
-        private string Url(string endpoint)
+        private string RelyingPartyUrl(string endpoint)
         {
-            return $"{url}/{endpoint}?key={options.WebApiKey}";
+            return $"https://www.googleapis.com/identitytoolkit/v3/relyingparty/{endpoint}?key={options.WebApiKey}";
+        }
+
+        private string SecureTokenUrl()
+        {
+            return $"https://securetoken.googleapis.com/v1/token?key={options.WebApiKey}";
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<SignUpNewUserResponse> SignUpNewUser(SignUpNewUserRequest request)
         {
-            return await Post<SignUpNewUserResponse>(Url("signupNewUser"), request);
+            return await Post<SignUpNewUserResponse>(RelyingPartyUrl("signupNewUser"), request);
         }
 
         /// <summary>
@@ -48,7 +52,15 @@ namespace Firebase.Auth
         /// </summary>
         public async Task<VerifyPasswordResponse> VerifyPassword(VerifyPasswordRequest request)
         {
-            return await Post<VerifyPasswordResponse>(Url("verifyPassword"), request);
+            return await Post<VerifyPasswordResponse>(RelyingPartyUrl("verifyPassword"), request);
+        }
+
+        /// <summary>
+        /// Verifies the user via refresh token.
+        /// </summary>
+        public async Task<VerifyRefreshTokenResponse> VerifyRefreshToken(VerifyRefreshTokenRequest request)
+        {
+            return await Post<VerifyRefreshTokenResponse>(SecureTokenUrl(), request);
         }
 
         private async Task<TResponse> Post<TResponse>(string endpoint, object request) where TResponse : class
@@ -83,8 +95,6 @@ namespace Firebase.Auth
                         ResponseJson = responseJson
                     };
                 }
-
-
             }
         }
 
