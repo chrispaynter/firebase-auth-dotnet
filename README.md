@@ -62,6 +62,7 @@ Then in your **appsettings.json** or your secrets configuration, add this.
 All code examples use the `FirebaseAuthService` that we saw created in the [Getting Started](#getting-started) section. 
 > * [Sign up with email and password](#Sign-up-with-email-and-password)
 > * [Sign in with email and password](#Sign-in-with-email-and-password)
+> * [Re-authenticate with refresh token](#Re-authenticate-with-refresh-token)
 
 >**You can follow Firebase's Official documentation in conjunction with this.**
 >
@@ -93,7 +94,7 @@ var request = new SignUpNewUserRequest()
 
 try
 {
-    var response  await firebase.SignUpNewUser(request);
+    var response = await firebase.SignUpNewUser(request);
 }
 catch(FirebaseAuthException e)
 {
@@ -122,7 +123,35 @@ var request = new VerifyPasswordRequest()
 
 try
 {
-    var response  await firebase.VerifyPassword(request);
+    var response = await firebase.VerifyPassword(request);
+}
+catch(FirebaseAuthException e)
+{
+    // App specific error handling.
+}
+
+~~~~
+
+## Re-authenticate with refresh token
+>Uses a cached refresh token provided by a previous API response to re-authenticate the user.
+
+|||
+|-----|-----|
+| **Firebase API Endpoint** | `token` |
+| **Request C# Type** | `Firebase.Auth.Payloads.VerifyRefreshTokenRequest` |
+| **Response C# Type**| `Firebase.Auth.Payloads.VerifyRefreshTokenResponse` |
+| **Endpoint Official Documentation** | [Go to Firebase](https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token) |
+
+### Example
+~~~~
+var request = new VerifyRefreshTokenRequest()
+{
+    RefreshToken = cachedRefreshToken
+};
+
+try
+{
+    var response = await firebase.VerifyRefreshToken(request);
 }
 catch(FirebaseAuthException e)
 {
