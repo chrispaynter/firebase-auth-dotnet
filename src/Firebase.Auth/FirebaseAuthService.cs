@@ -11,7 +11,7 @@ namespace Firebase.Auth
     /// <summary>
     /// Service for connecting and communicating with the Firebase Auth REST API
     /// </summary>
-    public class FirebaseAuthService: IFirebaseAuthService, IDisposable
+    public class FirebaseAuthService : IFirebaseAuthService, IDisposable
     {
         private FirebaseAuthOptions options;
         private readonly HttpClient client;
@@ -61,6 +61,30 @@ namespace Firebase.Auth
         public async Task<VerifyRefreshTokenResponse> VerifyRefreshToken(VerifyRefreshTokenRequest request)
         {
             return await Post<VerifyRefreshTokenResponse>(SecureTokenUrl(), request);
+        }
+
+        /// <summary>
+        /// Sends a password change request to the provided user (id token)
+        /// </summary>
+        public async Task<SendVerificationEmailResponse> SendVerification(SendVerificationEmailRequest request)
+        {
+            return await Post<SendVerificationEmailResponse>(RelyingPartyUrl("getOobConfirmationCode"), request);
+        }
+
+        /// <summary>
+        /// Sends a password change request to the provided user (id token)
+        /// </summary>
+        public async Task<ChangePasswordResponse> PasswordChange(ChangePasswordRequest request)
+        {
+            return await Post<ChangePasswordResponse>(RelyingPartyUrl("setAccountInfo"), request);
+        }
+
+        /// <summary>
+        /// Gets the data of a specific account
+        /// </summary>
+        public async Task<GetUserDataResponse> GetUserData(GetUserDataRequest request)
+        {
+            return await Post<GetUserDataResponse>(RelyingPartyUrl("getAccountInfo"), request);
         }
 
         private async Task<TResponse> Post<TResponse>(string endpoint, object request) where TResponse : class

@@ -3,12 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Firebase.Auth.Rest</PackageId>
-    <PackageVersion>1.1.0-beta</PackageVersion>
-    <Authors>Chris Paynter</Authors>
+    <PackageVersion>1.1.1-beta</PackageVersion>
+    <Authors>Chris Paynter, Florian Kriegl</Authors>
     <Description>A .NET API client for Firebase Rest Authentication API that follows Google's API spec as precisely as possible.</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
-    <Copyright></Copyright>
     <PackageTags>firebase auth</PackageTags>
     <Version>1.1.0-beta</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
